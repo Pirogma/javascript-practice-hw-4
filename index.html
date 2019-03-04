@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>touch and run</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <script src="jquery.js" charset="utf-8"></script>
+	<style>
+
+     html, body {
+       width: 100%;
+       height: 100%;
+       margin: 0;
+       background-color: #000;
+
+       font-family: 'Varela Round', sans-serif;
+     }
+
+	div{
+		position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: blue;
+    top: 300px;
+    font-size: 90px;
+    text-align: center;
+	}
+  h1 {
+    color: #fff;
+    font-size: 50px;
+    text-align: center;
+  }
+  li {
+        text-align: right;
+        color: #fff;
+        font-size: 30px;
+        padding: 20px;
+  }
+	</style>
+</head>
+<body>
+  <h1>Touch and run!</h1>
+  <ul>
+    <li>Go left: ← or (a)</li>
+    <li>Go right: → or (d)</li>
+    <li>Go up: ↑ or (w)</li>
+    <li>Go down: ↓ or (s)</li>
+  </ul>
+    <div id="square1">1</div>
+    <div id="square2">2</div>
+</body>
+<script>
+$(function() {
+    $("div").each(function(index) {
+
+      let x = Math.round(Math.random() * 1000)
+      let r = Math.floor(Math.random() * 100)
+      let g = Math.floor(Math.random() * 1000)
+      let b = Math.floor(Math.random() * 1000)
+      let color = [r, g, b].join()
+      $(this).css({
+        "left": x + "px",
+        "background-color": "rgb(" + color + ")"
+      })
+    })
+  })
+setInterval(movePlane, 20);
+var keys = {}
+
+$(document).keydown(function(e) {
+    keys[e.keyCode] = true;
+});
+
+$(document).keyup(function(e) {
+    delete keys[e.keyCode];
+});
+
+function movePlane() {
+    for (var direction in keys) {
+        if (!keys.hasOwnProperty(direction)) continue;
+        if (direction == 37) {
+            $("#square1").animate({left: "-=5"}, 0);
+        }
+        if (direction == 38) {
+            $("#square1").animate({top: "-=5"}, 0);
+        }
+        if (direction == 39) {
+            $("#square1").animate({left: "+=5"}, 0);
+        }
+        if (direction == 40) {
+            $("#square1").animate({top: "+=5"}, 0);
+        }
+        if (direction == 65) {
+            $("#square2").animate({left: "-=5"}, 0);
+        }
+        if (direction == 68) {
+            $("#square2").animate({left: "+=5"}, 0);
+        }
+        if (direction == 87) {
+            $("#square2").animate({top: "-=5"}, 0);
+        }
+        if (direction == 83) {
+            $("#square2").animate({top: "+=5"}, 0);
+        }
+    }
+}
+</script>
+</html>
